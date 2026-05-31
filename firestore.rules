@@ -1,0 +1,91 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function for admin check
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email.matches("(?i)^shezaanone@gmail\\.com$");
+    }
+
+    // Properties: Anyone can read, only admin can write
+    match /properties/{propId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Amenities: Anyone can read, only admin can write
+    match /amenities/{amenityId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Photos: Anyone can read, only admin can write
+    match /photos/{photoId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Gallery: Anyone can read, only admin can write (used interchangeably with photos)
+    match /gallery/{photoId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Reviews: Anyone can read, only admin can write
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // House Rules: Anyone can read, only admin can write
+    match /houseRules/{ruleId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // FAQs: Anyone can read, only admin can write
+    match /faqs/{faqId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Blocked Dates: Anyone can read, only admin can write
+    match /blockedDates/{dateId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Welcome Book: Anyone can read, only admin can write
+    match /welcomeBook/{welcomeId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Enquiries: Anyone can create, read with accessKey; only admin can read/update/delete
+    match /enquiries/{enquiryId} {
+      allow create: if true;
+      allow read: if isAdmin() || (resource.data.accessKey != null && resource.data.accessKey != "");
+      allow update, delete: if isAdmin();
+    }
+
+    // Bookings: read for admin OR if a booking has a welcomeCode (for guests), only admin can write
+    match /bookings/{bookingId} {
+      allow read: if isAdmin() || (resource.data.welcomeCode != null && resource.data.welcomeCode != "");
+      allow write: if isAdmin();
+    }
+
+    // Booking Archive: only admin can read, write
+    match /bookingArchive/{archiveId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Invoices: only admin can read, write
+    match /invoices/{invoiceId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Explicitly deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

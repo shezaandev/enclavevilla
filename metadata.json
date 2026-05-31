@@ -1,0 +1,6 @@
+{
+  "name": "Lonavala Enclave Villa Admin",
+  "description": "Premium villa management dashboard with real-time billing, content management, and gallery control.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

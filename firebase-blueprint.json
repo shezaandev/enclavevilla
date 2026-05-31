@@ -1,0 +1,227 @@
+{
+  "entities": {
+    "PropertyInfo": {
+      "title": "Property Information",
+      "description": "Global settings and content for the villa",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "tagline": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "email": { "type": "string" },
+        "checkIn": { "type": "string" },
+        "checkOut": { "type": "string" },
+        "caretakerHours": { "type": "string" },
+        "mapUrl": { "type": "string" },
+        "instagramUrl": { "type": "string" },
+        "facebookUrl": { "type": "string" },
+        "aboutText1": { "type": "string" },
+        "aboutText2": { "type": "string" },
+        "displayRating": { "type": "string" },
+        "displayReviewCount": { "type": "string" },
+        "maxGuests": { "type": "number" },
+        "bhkCount": { "type": "number" }
+      },
+      "required": ["name", "address", "phone"]
+    },
+    "Amenity": {
+      "title": "Amenity",
+      "description": "A feature or service provided at the villa",
+      "type": "object",
+      "properties": {
+        "icon": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "visible": { "type": "boolean" },
+        "order": { "type": "number" }
+      },
+      "required": ["title", "visible", "order"]
+    },
+    "Photo": {
+      "title": "Photo",
+      "description": "An image in the villa's gallery",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "label": { "type": "string" },
+        "category": { "type": "string", "enum": ["Pool", "Bedroom", "Exterior", "Dining", "Garden", "Living Room"] },
+        "visible": { "type": "boolean" },
+        "featured": { "type": "boolean" },
+        "order": { "type": "number" }
+      },
+      "required": ["url", "visible", "order"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A guest review of the villa",
+      "type": "object",
+      "properties": {
+        "guestName": { "type": "string" },
+        "guestCity": { "type": "string" },
+        "rating": { "type": "number" },
+        "text": { "type": "string" },
+        "monthYear": { "type": "string" },
+        "source": { "type": "string" },
+        "visible": { "type": "boolean" },
+        "featured": { "type": "boolean" }
+      },
+      "required": ["guestName", "rating", "text", "visible"]
+    },
+    "Enquiry": {
+      "title": "Enquiry",
+      "description": "A booking request submitted by a guest",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "checkIn": { "type": "string" },
+        "checkOut": { "type": "string" },
+        "guests": { "type": "number" },
+        "occasion": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string", "enum": ["new", "contacted", "confirmed", "cancelled"] },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "accessKey": { "type": "string" }
+      },
+      "required": ["name", "phone", "checkIn", "checkOut", "status", "createdAt"]
+    },
+    "WelcomeContent": {
+      "title": "Welcome Book Content",
+      "description": "Information provided in the digital welcome book",
+      "type": "object",
+      "properties": {
+        "sections": {
+          "type": "object",
+          "properties": {
+            "welcome": { "type": "string" },
+            "checkIn": { "type": "string" },
+            "wifi": { "type": "string" },
+            "houseRules": { "type": "string" },
+            "appliances": { "type": "string" },
+            "restaurants": { "type": "string" },
+            "attractions": { "type": "string" },
+            "emergency": { "type": "string" }
+          }
+        },
+        "lastUpdated": { "type": "string", "format": "date-time" }
+      }
+    },
+    "HouseRule": {
+      "title": "House Rule",
+      "description": "A rule or policy for staying at the villa",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "order": { "type": "number" }
+      },
+      "required": ["text", "order"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "A confirmed booking at the villa",
+      "type": "object",
+      "properties": {
+        "bookingId": { "type": "string" },
+        "guestName": { "type": "string" },
+        "guestPhone": { "type": "string" },
+        "adults": { "type": "number" },
+        "children": { "type": "number" },
+        "checkIn": { "type": "string", "format": "date-time" },
+        "checkOut": { "type": "string", "format": "date-time" },
+        "totalNights": { "type": "number" },
+        "villa": { "type": "string" },
+        "source": { "type": "string" },
+        "grandTotal": { "type": "number" },
+        "advancePaid": { "type": "number" },
+        "balanceDue": { "type": "number" },
+        "balanceDueDate": { "type": "string", "format": "date-time" },
+        "paymentMethod": { "type": "string" },
+        "paymentStatus": { "type": "string", "enum": ["Pending", "Advance Paid", "Fully Paid"] },
+        "notes": { "type": "string" },
+        "welcomeCode": { "type": "string" },
+        "status": { "type": "string", "enum": ["upcoming", "checked-in", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "billGenerated": { "type": "boolean" },
+        "welcomeBookSent": { "type": "boolean" }
+      },
+      "required": ["bookingId", "guestName", "guestPhone", "checkIn", "checkOut", "grandTotal", "status"]
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "A generated invoice/bill for a guest booking",
+      "type": "object",
+      "properties": {
+        "invoiceNumber": { "type": "string" },
+        "bookingId": { "type": "string" },
+        "bookingRef": { "type": "string" },
+        "guestName": { "type": "string" },
+        "guestPhone": { "type": "string" },
+        "adults": { "type": "number" },
+        "children": { "type": "number" },
+        "checkIn": { "type": "string" },
+        "checkOut": { "type": "string" },
+        "totalNights": { "type": "number" },
+        "lineItems": {
+          "type": "array"
+        },
+        "subtotal": { "type": "number" },
+        "discountValue": { "type": "number" },
+        "discountType": { "type": "string", "enum": ["flat", "percent"] },
+        "discountAmount": { "type": "number" },
+        "grandTotal": { "type": "number" },
+        "advancePaid": { "type": "number" },
+        "remainingBalance": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "paymentStatus": { "type": "string" },
+        "balanceDueDate": { "type": "string" },
+        "notes": { "type": "string" },
+        "terms": { "type": "string" },
+        "upiId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["invoiceNumber", "guestName", "grandTotal", "createdAt"]
+    }
+  },
+  "firestore": {
+    "properties": {
+      "schema": "PropertyInfo",
+      "description": "Global property configuration"
+    },
+    "amenities": {
+      "schema": "Amenity",
+      "description": "List of amenities"
+    },
+    "photos": {
+      "schema": "Photo",
+      "description": "Villa image gallery"
+    },
+    "reviews": {
+      "schema": "Review",
+      "description": "Guest testimonials"
+    },
+    "enquiries": {
+      "schema": "Enquiry",
+      "description": "Booking requests"
+    },
+    "rules": {
+      "schema": "HouseRule",
+      "description": "Stay policies"
+    },
+    "welcomeBook": {
+      "schema": "WelcomeContent",
+      "description": "Digital welcome book content"
+    },
+    "bookings": {
+      "schema": "Booking",
+      "description": "Confirmed guest bookings"
+    },
+    "invoices": {
+      "schema": "Invoice",
+      "description": "Saved past invoices"
+    }
+  }
+}
